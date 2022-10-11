@@ -1,0 +1,2 @@
+Counts occurrences of each nucleotide in given String, representing a DNA sequence.
+Only the symbols  'A', 'C', 'G', and 'T' are valid. Each represents one of the nucleotides found in DNA
