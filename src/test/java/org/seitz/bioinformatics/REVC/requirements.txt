@@ -1,0 +1,4 @@
+Accepts a string representing a DNA sequence, of a maximum length of 1000 nucleotides.
+Only the symbols  'A', 'C', 'G', and 'T' are valid. Each represents one of the nucleotides found in DNA.
+Generates the reverse complement of the given DNA sequence
+Returns the reverse complement DNA sequence as a string

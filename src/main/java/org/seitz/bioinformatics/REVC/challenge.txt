@@ -1,0 +1,2 @@
+Description of the problem:
+https://rosalind.info/problems/revc/
