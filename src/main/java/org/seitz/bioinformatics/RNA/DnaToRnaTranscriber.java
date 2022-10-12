@@ -1,14 +1,26 @@
 package org.seitz.bioinformatics.RNA;
 
 import org.seitz.bioinformatics.DNA.InvalidNucleotideException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.seitz.bioinformatics.DnaSequenceValidator;
 
 /**
  * Transcribes a DNA sequence to an RNA sequence
  */
 public class DnaToRnaTranscriber {
+
+    /**
+     * DNA sequence validator
+     */
+    private final DnaSequenceValidator dnaSequenceValidator;
+
+    /**
+     * Constructor taking the DNA sequence validator
+     *
+     * @param dnaSequenceValidator      DNA sequence validator
+     */
+    public DnaToRnaTranscriber(DnaSequenceValidator dnaSequenceValidator) {
+        this.dnaSequenceValidator = dnaSequenceValidator;
+    }
 
     /**
      * Transcribes a DNA sequence to an RNA sequence.
@@ -21,7 +33,7 @@ public class DnaToRnaTranscriber {
      */
     public String transcribeDnaToRna(String dnaSequence) throws SequenceTooLongException, InvalidNucleotideException {
         this.checkSequenceLength(dnaSequence);
-        this.checkForInvalidNucleotides(dnaSequence);
+        this.dnaSequenceValidator.checkForInvalidNucleotides(dnaSequence);
         return dnaSequence.replace('T', 'U');
     }
 
@@ -34,20 +46,6 @@ public class DnaToRnaTranscriber {
     private void checkSequenceLength(String dnaSequence) throws SequenceTooLongException {
         if (dnaSequence.length() > 1000) {
             throw new SequenceTooLongException();
-        }
-    }
-
-    /**
-     * Throws exception if given DNA sequence contains invalid nucleotides
-     *
-     * @param input                         the string representing the given DNA sequence
-     * @throws InvalidNucleotideException   thrown in case DNA sequence contains invalid nucleotides
-     */
-    private void checkForInvalidNucleotides(String input) throws InvalidNucleotideException {
-        Pattern pattern = Pattern.compile("[^ACGT]");
-        Matcher matcher = pattern.matcher(input);
-        if (matcher.find()) {
-            throw new InvalidNucleotideException();
         }
     }
 }
