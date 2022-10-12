@@ -7,19 +7,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class NucleotideCounterTest {
 
+    private final NucleotideCounter counter;
+
+    public NucleotideCounterTest() {
+        this.counter = new NucleotideCounter();
+    }
+
     @Test
     public void shouldCountNucleotidesCorrectly() throws InvalidNucleotideException {
-        NucleotideCounter counter = new NucleotideCounter();
-        String input = "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC";
+        String dnaSequence = "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC";
         int[] result = new int[]{20, 12, 17, 21};
-        assertArrayEquals(result, counter.count(input));
+        assertArrayEquals(result, this.counter.count(dnaSequence));
     }
 
     @Test
     public void shouldNotAcceptInvalidInput() {
-        NucleotideCounter counter = new NucleotideCounter();
-        String input = "AGCTTTTCATTCTGACTGCAACGGGFAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC";
+        String dnaSequence = "AGCTTTTCATTCTGACTGCAACGGGFAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC";
         assertThrows(InvalidNucleotideException.class,
-                () -> counter.count(input));
+                () -> this.counter.count(dnaSequence));
     }
 }

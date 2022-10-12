@@ -10,20 +10,20 @@ public class NucleotideCounter {
 
     /**
      * Counts the number of occurrence of each nucleotide in a valid given DNA sequence
-     * Returns counts in an array with the order "A", "C", "G", "T"
+     * Returns number of occurrences in an array with the order "A", "C", "G", "T"
      *
-     * @param input                         the given DNA sequence as a string
-     * @return                              the int array containing the number of occurrences
-     * @throws InvalidNucleotideException   throws exception if input contains invalid nucleotide
+     * @param dnaSequence                   the string representing the DNA sequence
+     * @return                              the int array containing the number of occurrences for each nucleotide
+     * @throws InvalidNucleotideException   throws exception if dnaSequence contains invalid nucleotide
      */
-    public int[] count(String input) throws InvalidNucleotideException {
+    public int[] count(String dnaSequence) throws InvalidNucleotideException {
         int[] result = new int[]{0, 0, 0, 0};
         String[] nucleotides = new String[]{"A", "C", "G", "T"};
 
-        this.checkForInvalidNucleotides(input);
+        this.checkForInvalidNucleotides(dnaSequence);
 
         for (int i = 0; i < result.length; i++) {
-            result[i] = this.getOccurrencesOfNucleotide(input, nucleotides[i]);
+            result[i] = this.getOccurrencesOfNucleotide(dnaSequence, nucleotides[i]);
         }
 
         return result;
@@ -32,14 +32,14 @@ public class NucleotideCounter {
     /**
      * Returns the number of times a given nucleotide occurs in given DNA sequence
      *
-     * @param input         the given DNA sequence as a string
+     * @param dnaSequence   the string representing the DNA sequence
      * @param nucleotide    the given nucleotide to be counted
      * @return              the number of times the nucleotide occurred in the sequence
      */
-    private int getOccurrencesOfNucleotide(String input, String nucleotide) {
+    private int getOccurrencesOfNucleotide(String dnaSequence, String nucleotide) {
 
         Pattern pattern = Pattern.compile(nucleotide);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = pattern.matcher(dnaSequence);
         int counter = 0;
         while(matcher.find()) {
             counter++;
@@ -52,12 +52,12 @@ public class NucleotideCounter {
     /**
      * Checks in given DNA sequence contains an invalid nucleotide
      *
-     * @param input                         the given DNA sequence as a string
+     * @param dnaSequence                   the string representing the DNA sequence
      * @throws InvalidNucleotideException   throws exception if DNA sequence contains invalid nucleotide
      */
-    private void checkForInvalidNucleotides(String input) throws InvalidNucleotideException {
+    private void checkForInvalidNucleotides(String dnaSequence) throws InvalidNucleotideException {
         Pattern pattern = Pattern.compile("[^ACGT]");
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = pattern.matcher(dnaSequence);
         if (matcher.find()) {
             throw new InvalidNucleotideException();
         }
